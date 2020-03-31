@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+    <title>JSON Set List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <meta name="author" content="Craig Cagner" />
+    <meta name="description" content="Set List in JSON" />
+    <style type="text/css">
+        p {
+            margin: 0px;
+            padding: 0px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 45px;
+            text-align: center;
+        }
+        em {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        #genreForm {
+            text-align: center;
+        }
+    </style>
+</head>
+    
+<body>
+
+    <h1>Set List</h1>
+    <div id="genreForm">
+        <form>
+            <p>filter by genre</p>
+            <select id="chooseGenre">
+                <option value="Pop">Pop</option>
+                <option value="Rap">Rap</option>
+                <option value="Funk">Funk</option>
+                <option value="Country">Country</option>
+            </select>
+            <button type="button" onclick="filterSet()">Filter</button>
+        </form>
+    </div>
+    <br /><br />
+    <div id="filtered"></div>
+    <div id="userFriendly"></div><br /><br /><br /><br /><br />
+    <div id="stringified"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script language="javascript">
+
+        var set = {
+            "setList":
+            [
+                {
+                    "Title": "Second to the Sun",
+                    "Artists": ["Stolen Gin"],
+                    "Genre": ["Funk"],
+                    "Year": 2019
+                },
+                {
+                    "Title": "High Fashion",
+                    "Artists": ["Roddy Ricch", "Mustard"],
+                    "Genre": ["Rap", "Pop"],
+                    "Year": 2019
+                },
+                {
+                    "Title": "Freak N You",
+                    "Artists": ["DJ Khaled", "Lil Wayne", "Gunna"],
+                    "Genre": ["Rap", "Pop"],
+                    "Year": 2019
+                },
+                {
+                    "Title": "Blinding Lights",
+                    "Artists": ["The Weeknd"],
+                    "Genre": ["Pop"],
+                    "Year": 2019
+                },
+                {
+                    "Title": "Roses - Imanbek Remix",
+                    "Artists": ["SAINt JHN", "Imanbek"],
+                    "Genre": ["Pop"],
+                    "Year": 2019
+                },
+                {
+                    "Title": "Don't Start Now",
+                    "Artists": ["Dua Lipa"],
+                    "Genre": ["Pop"],
+                    "Year": 2019
+                },
+                {
+                    "Title": "Old Town Road",
+                    "Artists": ["Lil Nas X", "Billy Ray Cyrus"],
+                    "Genre": ["Country", "Rap", "Pop"],
+                    "Year": 2019
+                },
+                {
+                    "Title": "Physical",
+                    "Artists": ["Dua Lipa"],
+                    "Genre": ["Pop"],
+                    "Year": 2020
+                },
+                {
+                    "Title": "Sunflower",
+                    "Artists": ["Post Malone"],
+                    "Genre": ["Pop", "Rap"],
+                    "Year": 2018
+                },
+                {
+                    "Title": "Circles",
+                    "Artists": ["Post Malone"],
+                    "Genre": ["Pop"],
+                    "Year": 2019
+                },
+                {
+                    "Title": "Gasman",
+                    "Artists": ["Stolen Gin"],
+                    "Genre": ["Funk"],
+                    "Year": 2019
+                },
+                {
+                    "Title": "Here and Now",
+                    "Artists": ["Stolen Gin"],
+                    "Genre": ["Funk"],
+                    "Year": 2019
+                }
+            ]
+        };
+
+        var jsonObject = JSON.stringify(set);
+        document.getElementById("stringified").innerHTML = jsonObject;
+
+        for(i = 0; i < set.setList.length; i++) {
+            var song = set.setList[i];
+            var blurb = "<p>-------------------------------<br />" +
+                        "<em>" + song.Title + "</em><br /><br />Artists: ";
+            for(j = 0; j < song.Artists.length; j++) {
+                blurb += song.Artists[j];
+                if(j != song.Artists.length - 1) {
+                    blurb += ", ";
+                }
+            }
+            blurb += "<br />Genre: ";
+            for(j = 0; j < song.Genre.length; j++) {
+                blurb += song.Genre[j];
+                if(j != song.Genre.length - 1) {
+                    blurb += ", ";
+                }
+            }
+            blurb += "<br />Year: " + song.Year + "<br /></p>";
+            $("#userFriendly").append(blurb);
+        };
+
+        function filterSet()
+        {
+            $("#filtered").empty();
+            
+            for(i = 0; i < set.setList.length; i++) {
+                var input = document.getElementById("chooseGenre").value;
+                var song = set.setList[i];
+                for(j = 0; j < song.Genre.length; j++) {
+                    if(song.Genre[j] == input) {
+                        var blurb = "<p>-------------------------------<br />" +
+                                    "<em>" + song.Title + "</em><br /><br />Artists: ";
+                        for(j = 0; j < song.Artists.length; j++) {
+                            blurb += song.Artists[j];
+                            if(j != song.Artists.length - 1) {
+                                blurb += ", ";
+                            }
+                        }
+                        blurb += "<br />Genre: ";
+                        for(j = 0; j < song.Genre.length; j++) {
+                            blurb += song.Genre[j];
+                            if(j != song.Genre.length - 1) {
+                                blurb += ", ";
+                            }
+                        }
+                        blurb += "<br />Year: " + song.Year + "<br /></p>";
+                        $("#filtered").append(blurb);
+                    }
+                }
+            }
+            var end = "<br /><br /><br /><br /><br /><br /><br /><br />";
+            $("#filtered").append(end);
+        }
+
+    </script>
+
+</body>
+
+</html>
